@@ -1,0 +1,6 @@
+How big can a node name be? (assumed 250 characters)
+Can it contain all foreign characters? 
+The "Provide basic input validation and return meaningful errors" requirement. 
+    What constitues a valid input? I'm only checking for duplicate nodes, but I'd want some more info there.
+
+Could child nodes have the same name as parent nodes? 

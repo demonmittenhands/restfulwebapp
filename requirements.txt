@@ -1,0 +1,51 @@
+Create RESTful web services to (1) create, (2) read/list, and (3) delete records within a
+hierarchy/tree.
+Project requirements:
+● You may use any Java framework/platform you prefer (Spring Boot, Jersey, Vert.x,
+etc).
+● Create a Maven or Gradle project to handle build and dependencies
+● Use either a lightweight DB (H2) or MySQL to persist data
+● Write some basic unit tests to validate functionality (Just a handful of different types of
+tests is fine. Don’t need 100% coverage)
+Application requirements:
+● Provide basic input validation and return meaningful errors
+● Write to a log file as appropriate
+● Create records in a hierarchy:
+    ○ Create N records for any given level of the hierarchy, for a given parent node.
+    ○ Root level nodes are created by providing no parent node in the request.
+    ○ Allow duplicate records in the same request but only store one copy (remove duplicates)
+    ○ Return an error if the node name already exists from a prior service call that created it.
+● List records in a hierarchy:
+    ○ List records within a level of the hierarchy, for a given parent node.
+● Delete records in a hierarchy:
+    ○ Delete a given node and any child nodes (and their child nodes and so on), if it has any.
+
+Example hierarchies:
+● Products
+○ Electronics
+■ Computers
+■ Phones
+■ TV
+○ Home
+■ Houseware
+■ Tools
+■ Furniture
+○ Clothing
+■ Shirts
+■ Pants
+■ Shoes
+
+● CEO
+○ Director of engineering
+■ Senior engineer
+■ QA engineer
+■ Dev ops engineer
+○ Director of sales
+■ Sales manager
+■ Sales associate
+○ Director of marketing
+■ Marketing manager
+
+When you are ready, you can either send me access to a Git repo, or even just the source via
+email.
+If you have any questions, please let me know.
