@@ -2,6 +2,7 @@ package com.eeilander.restfulwebservicemm.repositories;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.eeilander.restfulwebservicemm.entities.NodeEntity;
 
@@ -18,4 +19,5 @@ public interface NodeRepository extends JpaRepository<NodeEntity, Integer>{
 
     void deleteAllByName(String name);
 
+    Optional<Set<NodeEntity>> findAllByParentNodeId(int parentNodeId);
 }

@@ -44,7 +44,7 @@ public class NodeController {
 
     /**
      * This request will add child nodes to the specified parent node
-     * @param names the names of the nodes to add
+     * @param body request body should contain "names": ["name1"...] for names of the nodes to add
      * @param parentNode the name of the parent node to add the child nodes to
      * @return the node that was created
      */
@@ -64,7 +64,7 @@ public class NodeController {
 
         // first check that the parent node is valid
         NodeEntity parentNode = nodeService.findSingleNodeByNodeName(nodeName);
-        // add each new name to the parent node
+        // add the parent node to the new nodes
         names.stream()
             .distinct()
             .map(name -> {NodeEntity n = new NodeEntity();
@@ -81,12 +81,25 @@ public class NodeController {
     /***
      * Returns the node and associated child nodes for a given node
      * @param nodeName the node we're looking for
-     * @return  the node and the child nodes at this level
+     * @return  the node and the anscestor nodes
      */
     @GetMapping(path="/{nodeName}", produces=MediaType.APPLICATION_JSON_VALUE)
     public NodeEntity getNode(@PathVariable("nodeName") String name) {
         return nodeService.findSingleNodeByNodeName(name);
     }
+
+    /***
+     * Returns the nodes at a given level for a specified node
+     * @param nodeName the node we're looking for
+     * @param level the level we want to find nodes for
+     * @return  the node and the child nodes at this level
+     */
+    @GetMapping(path="/{nodeName}/level/{level}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<NodeEntity> getNodesAtLevel(@PathVariable("nodeName") String name,
+                                        @PathVariable("level") int level) {
+        return nodeService.findNodesForALevel(name, level);
+    }
+
 
     @DeleteMapping(path="/{nodeName}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteNode(@PathVariable("nodeName") String name) {

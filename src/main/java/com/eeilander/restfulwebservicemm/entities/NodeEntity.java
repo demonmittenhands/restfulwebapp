@@ -28,9 +28,10 @@ public class NodeEntity {
     @Column(name="node_name", length=250, nullable=false, unique=true)
     private String name;
 
+    @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name="parent_node_id")
+    @JoinColumn(name="parent_node_id", nullable = true)
     private NodeEntity parentNode;
     
     @JsonIgnore
@@ -40,11 +41,11 @@ public class NodeEntity {
 
 
     public void setParentNode(NodeEntity parentNode) {
-        this.parentNode = parentNode;
+        this.parentNode = parentNode;s
     }
     
     public Set<NodeEntity> getChildNodes() {
-        return childNodes;
+        return null;
     }
 
     public NodeModel toNodeModel() {
@@ -55,7 +56,6 @@ public class NodeEntity {
         return nodeModel;
     }
 
-    // SpringBoot test just won't acknowledge lombok so I'm stuck making these kinds of functions :(
     public void setNodeName(String name) {
         this.name = name;
     }
