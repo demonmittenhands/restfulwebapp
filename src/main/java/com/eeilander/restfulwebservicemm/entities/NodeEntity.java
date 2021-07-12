@@ -22,12 +22,13 @@ public class NodeEntity {
 
     public NodeModel toNodeModel() {
         var nodeModel = new NodeModel();
+        nodeModel.id = this.id;
         nodeModel.name = this.name;
         nodeModel.parentNodeId = this.parentNodeId;
         return nodeModel;
     }
 
-    // SpringBootTest just won't acknowledge lombok so I'm stuck making these kinds of funcitons :(
+    // SpringBoot test just won't acknowledge lombok so I'm stuck making these kinds of funcitons :(
     public void setNodeName(String name) {
         this.name = name;
     }

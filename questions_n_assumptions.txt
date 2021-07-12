@@ -4,3 +4,8 @@ The "Provide basic input validation and return meaningful errors" requirement.
     What constitues a valid input? I'm only checking for duplicate nodes, but I'd want some more info there.
 
 Could child nodes have the same name as parent nodes? 
+
+Couldn't get GSON or JSON libraries to play nice with my controller so I'm doing some not great casting to HashMaps. 
+It works and I'm sure I'm missing an import or configuration for VS code
+
+Lombok won't work inside of tests, so even though I've used @Setter/@Getter/@Data I'm stuck writing getters/setters myself anyway.
