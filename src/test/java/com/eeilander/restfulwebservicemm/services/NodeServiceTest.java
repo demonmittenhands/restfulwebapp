@@ -31,4 +31,24 @@ public class NodeServiceTest {
         assertEquals(testNodeName, nodeService.findSingleNodeByNodeName(testNodeName).getName());
     }
 
+    @Test
+    public void returnsCorrectNodesForAGivenLevel() {
+        String parentNodeName = "parentNode";
+        NodeEntity parentNode = new NodeEntity();
+        parentNode.setNodeName(parentNodeName);
+        nodeService.addSingleNode(parentNode);
+
+        
+
+        String childNodeName = "childNode";
+        NodeEntity childNode = new NodeEntity();
+        childNode.setParentNode(nodeService.findSingleNodeByNodeName(parentNodeName));
+        childNode.setNodeName(childNodeName);
+        nodeService.addSingleNode(childNode);
+
+        assertEquals(childNodeName, nodeService.findSingleNodeByNodeName(childNodeName).getName());
+
+        assert(nodeService.findNodesForALevel(parentNodeName, 1).contains(childNode));
+    }
+
 }

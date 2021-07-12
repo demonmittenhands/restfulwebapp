@@ -1,17 +1,21 @@
 package com.eeilander.restfulwebservicemm.entities;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.eeilander.restfulwebservicemm.models.NodeModel;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -41,7 +45,7 @@ public class NodeEntity {
 
 
     public void setParentNode(NodeEntity parentNode) {
-        this.parentNode = parentNode;s
+        this.parentNode = parentNode;
     }
     
     public Set<NodeEntity> getChildNodes() {
@@ -60,7 +64,4 @@ public class NodeEntity {
         this.name = name;
     }
 
-    public void setParentId(int id) {
-        this.parentNodeId = id;
-    }
 }

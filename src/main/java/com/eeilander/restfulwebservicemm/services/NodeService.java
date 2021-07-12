@@ -11,13 +11,10 @@ import java.util.stream.Stream;
 import javax.transaction.Transactional;
 
 import com.eeilander.restfulwebservicemm.entities.NodeEntity;
-import com.eeilander.restfulwebservicemm.models.NodeModel;
 import com.eeilander.restfulwebservicemm.repositories.NodeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import net.bytebuddy.description.type.TypeList.Generic.ForDetachedTypes;
 
 @Service
 public class NodeService {
