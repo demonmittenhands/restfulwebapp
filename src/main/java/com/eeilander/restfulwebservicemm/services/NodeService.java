@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import com.eeilander.restfulwebservicemm.entities.NodeEntity;
 import com.eeilander.restfulwebservicemm.models.NodeModel;
 import com.eeilander.restfulwebservicemm.repositories.NodeRepository;
@@ -17,23 +19,28 @@ public class NodeService {
     NodeRepository nodeRepository;
 
 
-    public NodeModel addSingleNode(NodeEntity node) {
+    public NodeEntity addSingleNode(NodeEntity node) {
         nodeRepository.save(node);
-        return node.toNodeModel();
+        return node;
     }
 
-    public NodeModel findSingleNodeByNodeName(String name) {
+    public NodeEntity findSingleNodeByNodeName(String name) {
         Optional<NodeEntity> nodeEntityMaybe = nodeRepository.findAllByName(name);
         if (nodeEntityMaybe.isPresent()) {
-            NodeModel node = nodeEntityMaybe.get().toNodeModel();
-            List<NodeModel> childNodes = nodeRepository.findChildNodesByParentNodeId(node.getId()).get().stream()
-                                                                                    .map(thisNode -> thisNode.toNodeModel())
-                                                                                    .collect(Collectors.toList());
-            node.setChildNodes(childNodes);
+            NodeEntity node = nodeEntityMaybe.get();
+            // List<NodeEntity> childNodes = nodeRepository.findChildNodesByParentNodeId(node.getId()).get().stream()
+            //                                                                         // .map(thisNode -> thisNode.toNodeModel())
+            //                                                                         .collect(Collectors.toList());
+            // node.setChildNodes(childNodes);
             return node;
         } else {
             throw new Error("No matching node could be found.");
         }
+    }
+
+    @Transactional
+    public void deleteNodeByNodeName(String name) {
+        nodeRepository.deleteAllByName(name);
     }
 
 }

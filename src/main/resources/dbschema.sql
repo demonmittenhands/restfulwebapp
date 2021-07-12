@@ -13,6 +13,8 @@ CREATE TABLE node (
 
 GO;
 
+-- test data
+
 INSERT INTO node ()
 VALUES ("Products", NULL)
 GO;

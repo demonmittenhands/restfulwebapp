@@ -9,3 +9,5 @@ Couldn't get GSON or JSON libraries to play nice with my controller so I'm doing
 It works and I'm sure I'm missing an import or configuration for VS code
 
 Lombok won't work inside of tests, so even though I've used @Setter/@Getter/@Data I'm stuck writing getters/setters myself anyway.
+
+H2 database on 'localhost:8080/api/h2'. username: 'sa'. password: 'password'

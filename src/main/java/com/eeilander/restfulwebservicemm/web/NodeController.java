@@ -10,7 +10,9 @@ import com.eeilander.restfulwebservicemm.models.NodeModel;
 import com.eeilander.restfulwebservicemm.services.NodeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,7 +29,7 @@ public class NodeController {
     */
     @PostMapping(produces=MediaType.APPLICATION_JSON_VALUE, 
                     consumes=MediaType.APPLICATION_JSON_VALUE)
-    public NodeModel addParentNode(@RequestBody HashMap<String, String> body) {
+    public NodeEntity addParentNode(@RequestBody HashMap<String, String> body) {
         String name = "";
         if (body.containsKey("name")) {
             name = body.get("name");
@@ -49,7 +51,7 @@ public class NodeController {
     @PostMapping(path = "/{nodeName}",
                     produces=MediaType.APPLICATION_JSON_VALUE, 
                     consumes=MediaType.APPLICATION_JSON_VALUE)
-    public NodeModel addNode(@PathVariable("nodeName") String nodeName, 
+    public NodeEntity addNode(@PathVariable("nodeName") String nodeName, 
                                 @RequestBody HashMap<String, Object> body) {
         // check the request
         List<String> names = new ArrayList<>();
@@ -61,13 +63,13 @@ public class NodeController {
 
 
         // first check that the parent node is valid
-        NodeModel parentNode = nodeService.findSingleNodeByNodeName(nodeName);
+        NodeEntity parentNode = nodeService.findSingleNodeByNodeName(nodeName);
         // add each new name to the parent node
         names.stream()
             .distinct()
             .map(name -> {NodeEntity n = new NodeEntity();
                             n.setName(name);
-                            n.setParentId(parentNode.getId());
+                            n.setParentNode(parentNode);
                             return n;
                         })
             .forEach(node -> nodeService.addSingleNode(node));                     
@@ -82,9 +84,14 @@ public class NodeController {
      * @return  the node and the child nodes at this level
      */
     @GetMapping(path="/{nodeName}", produces=MediaType.APPLICATION_JSON_VALUE)
-    public NodeModel getNode(@PathVariable("nodeName") String name) {
+    public NodeEntity getNode(@PathVariable("nodeName") String name) {
         return nodeService.findSingleNodeByNodeName(name);
     }
 
+    @DeleteMapping(path="/{nodeName}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteNode(@PathVariable("nodeName") String name) {
+        nodeService.deleteNodeByNodeName(name);
+        return ResponseEntity.noContent().build();
+    }
 
 }
